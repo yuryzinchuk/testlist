@@ -32,10 +32,10 @@ void ShowQueue(ListType list) {
 
     std::cout << std::endl;
     while (p!=NULL)  
-	{
-	 std::cout << p->prior << " ";
+    {
+     std::cout << p->prior << " ";
      p=p->next;
-	}
+    }
 }
 
 int main()
@@ -52,43 +52,43 @@ int main()
 
     while (std::cout << "add new: ", std::cin >> n)
     {
-		// insert a new message in the head of the list (to the queue)
-        Node *p=new Node;
-        p->prior=n;
-        p->next=head;
-        head=p;
-		// insertion sort
-        InsertAndSort(head);
-		// show sorted queue
-		m=0;
-		p=head;
-        while (p!=NULL)
-		{
-         std::cout << p->prior << " ";
-		 m++;
-		 if (p->next != NULL)
-		 {
-          // control of size 
-		  if (m==SIZEQ) 
-		  {
-            // delete a message with low priority
-            std::cout << "deleted with low priority: " << p->next->prior;
-			delete p->next;
-			p->next = NULL;
-		  };
-		 };
-	     p=p->next;
-		}
-		// transmit a message with high priority
-		if (++i >= TRANS_SLOW)
-		{
-         i=0;
- 		 p=head;
-		 head=head->next;
-         std::cout << std::endl << "transmit with high priority: " << p->prior;
-		 delete p;
-		 ShowQueue(head);
-		};
-        std::cout << std::endl;
+	 // insert a new message in the head of the list (to the queue)
+     Node *p=new Node;
+     p->prior=n;
+     p->next=head;
+     head=p;
+	 // insertion sort
+     InsertAndSort(head);
+	 // show sorted queue
+	 m=0;
+	 p=head;
+     while (p!=NULL)
+	 {
+      std::cout << p->prior << " ";
+	  m++;
+	  if (p->next != NULL)
+	  {
+       // control of size 
+	   if (m==SIZEQ) 
+	   {
+        // delete a message with low priority
+        std::cout << "deleted with low priority: " << p->next->prior;
+	    delete p->next;
+		p->next = NULL;
+	  };
+	 };
+	 p=p->next;
+	}
+	// transmit a message with high priority
+	if (++i >= TRANS_SLOW)
+	{
+     i=0;
+ 	 p=head;
+	 head=head->next;
+     std::cout << std::endl << "transmit with high priority: " << p->prior;
+	 delete p;
+	 ShowQueue(head);
+	 };
+     std::cout << std::endl;
     }
 }
