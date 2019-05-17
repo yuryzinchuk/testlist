@@ -7,17 +7,17 @@
 class Node {
 
 public:
-    int data;
+    int prior;
     Node *next;
 };
 
 typedef Node * ListType;
 
-// сортування по пріоритету методом вставки
+// Insertion sort
 void InsertAndSort(ListType &list) {
     ListType *p = &list;
 
-    while ( (*p)->next && (*p)->next->data < (*p)->data)
+    while ( (*p)->next && (*p)->next->prior < (*p)->prior)
     {
       ListType node= *p;
       *p=node->next;
@@ -33,7 +33,7 @@ void ShowQueue(ListType list) {
     std::cout << std::endl;
     while (p!=NULL)  
 	{
-	 std::cout << p->data << " ";
+	 std::cout << p->prior << " ";
      p=p->next;
 	}
 }
@@ -52,40 +52,40 @@ int main()
 
     while (std::cout << "add new: ", std::cin >> n)
     {
-		// вставка нового повідомлення в голову списку (в чергу) 
+		// insert a new message in the head of the list (to the queue)
         Node *p=new Node;
-        p->data=n;
+        p->prior=n;
         p->next=head;
         head=p;
-		// сортування по пріоритету методом вставки
+		// insertion sort
         InsertAndSort(head);
-		// виведення відсортованого по пріоритетах вмісту черги 
+		// show sorted queue
 		m=0;
 		p=head;
         while (p!=NULL)
 		{
-         std::cout << p->data << " ";
+         std::cout << p->prior << " ";
 		 m++;
 		 if (p->next != NULL)
 		 {
-          // перевірка на допустимий розмір черги
+          // control of size 
 		  if (m==SIZEQ) 
 		  {
-            // видалення повідомлення з найнижчим пріоритетом
-            std::cout << "deleted with low prioity: " << p->next->data;
+            // delete a message with low priority
+            std::cout << "deleted with low priority: " << p->next->prior;
 			delete p->next;
 			p->next = NULL;
 		  };
 		 };
 	     p=p->next;
 		}
-		// передача повідомлення з найвищим пріоритетом (з швидкістю кожен третій від нових надійшовших повідомлень в чергу)
+		// transmit a message with high priority
 		if (++i >= TRANS_SLOW)
 		{
          i=0;
  		 p=head;
 		 head=head->next;
-         std::cout << std::endl << "transmit with high prioity: " << p->data;
+         std::cout << std::endl << "transmit with high priority: " << p->prior;
 		 delete p;
 		 ShowQueue(head);
 		};
